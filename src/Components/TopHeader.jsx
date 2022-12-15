@@ -16,7 +16,7 @@ const TopHeader = ({ imgUrl, imgAlt }) => {
           to={"/posts"}
           className="text-xl font-bold text-center text-sky-900"
         >
-          Posts App
+          Posts
         </Link>
       </section>
 

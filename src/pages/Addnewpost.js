@@ -23,7 +23,6 @@ const Addnewpost = () => {
     await addDoc(PostsCollection, {
       title: postTitle,
       body: postBody,
-      // learn how to use firebase server timestamps instead, use them for sorting later
       dateTime: Timestamp.now(),
       Writer: user.displayName,
       WriterId: user.uid,

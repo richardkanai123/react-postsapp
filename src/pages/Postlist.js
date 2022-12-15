@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
 import Post from "../Components/Post";
 import { mydb } from "../utils/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
@@ -8,6 +7,7 @@ import { useEffect } from "react";
 
 const Postlist = () => {
   const [posts, setPosts] = useState([]);
+
   // all posts
   const PostsRef = collection(mydb, "posts");
   // posts sorted in desc order of dateTime

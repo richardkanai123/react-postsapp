@@ -1,11 +1,19 @@
+import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteSweep } from "react-icons/md";
-
+import { mydb } from "../utils/firebase";
 // import { useNavigate } from "react-router-dom";
-const PostsEdit = ({ title, body, dateTime }) => {
-  const handleDelete = () => {
-    console.log("About to delete");
+const PostsEdit = ({ title, body, dateTime, postID }) => {
+  const handleDelete = async () => {
+    await deleteDoc(doc(mydb, "posts", postID))
+      .then(() => {
+        alert("Post Has Been Deleted");
+      })
+      .finally(
+        // unmount the parent
+        console.log(`${postID} deleted`)
+      );
   };
   const handleEdit = () => {
     console.log("About to Edit");

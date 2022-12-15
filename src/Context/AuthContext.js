@@ -1,31 +1,22 @@
-import React from "react";
-import { useState } from "react";
-import { createContext, useContext } from "react";
-import { auth } from "../utils/firebase";
-import { signInWithPopup } from "firebase/auth";
-import { useEffect } from "react";
+// creating context
+import { createContext, useState } from "react";
+import Login from "../Components/Login";
+import Profile from "../pages/Profile";
 
-const AuthContext = createContext();
-
-export function useAuthHook() {
-  return useContext(AuthContext);
-}
-
-export const AuthProvider = ({ children }) => {
-  const [currentUser, setcurrentUser] = useState();
-
-  function LogInWithGoogle(auth, provider) {
-    return signInWithPopup(auth, provider);
-  }
-
-  useEffect(() => {
-    const unSubscribe = auth.onAuthStateChanged((user) => {
-      setcurrentUser(user);
-      return unSubscribe;
-    }, []);
+export const CurrentLoggedUSerContext = createContext([]);
+export const HandleLoggedUSer = () => {
+  const [currentLoggedUser, setCurrentLoggedUser] = useState({
+    name: "richard",
+    id: "36329930",
+    school: "Chinga",
   });
 
-  const value = { currentUser, LogInWithGoogle };
-
-  return <AuthContext value={value}>{children}</AuthContext>;
+  return (
+    <CurrentLoggedUSerContext.Provider
+      value={[currentLoggedUser, setCurrentLoggedUser]}
+    >
+      <Login />
+      <Profile />
+    </CurrentLoggedUSerContext.Provider>
+  );
 };

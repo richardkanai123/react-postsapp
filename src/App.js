@@ -6,8 +6,8 @@ import Postlist from "./pages/Postlist";
 import { auth } from "./utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import TopHeader from "./Components/TopHeader";
-import { useEffect } from "react";
 import Profile from "./pages/Profile";
+import { useEffect } from "react";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -16,6 +16,8 @@ function App() {
   useEffect(() => {
     if (user) {
       navigate("/posts");
+    } else {
+      navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
