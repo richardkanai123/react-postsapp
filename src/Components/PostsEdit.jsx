@@ -2,21 +2,22 @@ import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteSweep } from "react-icons/md";
+import { Link } from "react-router-dom";
 import { mydb } from "../utils/firebase";
-// import { useNavigate } from "react-router-dom";
+
 const PostsEdit = ({ title, body, dateTime, postID }) => {
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
     await deleteDoc(doc(mydb, "posts", postID))
+      .catch((err) => {
+        alert(err);
+      })
       .then(() => {
         alert("Post Has Been Deleted");
       })
-      .finally(
-        // unmount the parent
-        console.log(`${postID} deleted`)
-      );
-  };
-  const handleEdit = () => {
-    console.log("About to Edit");
+      .then(() => {
+        const postHolder = e.target.parentElement.parentElement.parentElement;
+        postHolder.remove();
+      });
   };
 
   return (
@@ -27,11 +28,10 @@ const PostsEdit = ({ title, body, dateTime, postID }) => {
       <section className="flex justify-between align-middle items-center rounded p-1 border-b border-sky-600">
         <p className="text-xs text-green-800 font-light italic">{dateTime}</p>
         <section className=" p-1 flex items-center justify-center align-middle gap-3">
-          <button
-            onClick={handleEdit}
-            className="p-2 bg-lime-400 rounded-lg text-center text-blue-800 text-lg font-bold"
-          >
-            <FaRegEdit />
+          <button className="p-2 bg-lime-400 rounded-lg text-center text-blue-800 text-lg font-bold">
+            <Link to={`/edit/${postID}`}>
+              <FaRegEdit />
+            </Link>
           </button>
           <button
             onClick={handleDelete}

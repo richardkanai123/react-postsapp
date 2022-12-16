@@ -4,6 +4,7 @@ import { mydb } from "../utils/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Comment } from "react-loader-spinner";
 
 const Postlist = () => {
   const [posts, setPosts] = useState([]);
@@ -30,6 +31,21 @@ const Postlist = () => {
       return a_date;
     }
   };
+
+  if (posts.length === 0) {
+    return (
+      <Comment
+        visible={true}
+        height="100"
+        width="100"
+        ariaLabel="comment-loading"
+        wrapperStyle={{}}
+        wrapperClass="comment-wrapper"
+        color="#BBF7D0"
+        backgroundColor="#22C6BF"
+      />
+    );
+  }
 
   if (posts.length > 0)
     return (

@@ -6,7 +6,7 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import { FallingLines } from "react-loader-spinner";
 const Addnewpost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
@@ -31,6 +31,7 @@ const Addnewpost = () => {
         setPostBody("");
         setPostTitle("");
         alert("Added New Post>>✔✨✨");
+        setPostBodyLength(0);
       })
       .catch((error) => {
         alert(error);
@@ -83,28 +84,30 @@ const Addnewpost = () => {
             cols="30"
             rows="10"
             required
-            placeholder=" Enter the post body here (more than 100 characters)"
+            placeholder=" Enter the post body here (more than 50 characters)"
             className="mb-2 p-2 rounded-md bg-slate-400 text-white font-semibold placeholder-slate-200 ring-0 outline-none border-none text-center"
             value={postBody}
             onChange={(e) => {
               setPostBody(e.target.value);
-              // check if the post body is more than 100 characters
               setPostBodyLength(e.target.value.length);
             }}
           ></textarea>
 
           {postBodyLength < 50 ? (
-            // buttton disbaled until characters >100
+            // buttton disbaled until characters >50
             <button
               disabled
-              className="flex items-center justify-center gap-3 font-bold text-cyan-200 text-lg  bg-yellow-500 p-3 rounded-lg  ring-0 outline-0 mt-3 text-center cursor-not-allowed"
+              className="flex items-center justify-center gap-3 font-bold text-cyan-200 text-lg  p-3 rounded-lg  ring-0 outline-0 mt-3 text-center cursor-not-allowed"
               type="submit"
             >
-              Waiting...
+              <FallingLines
+                color="#4fa94d"
+                width="50"
+                visible={true}
+                ariaLabel="falling-lines-loading"
+              />
             </button>
           ) : (
-            // disable the button
-
             <button
               className="flex items-center justify-center gap-3 font-bold text-cyan-200 text-lg  bg-green-500 p-3 rounded-lg hover:text-cyan-500 hover:shadow-none ring-0 outline-0 mt-3 text-center cursor-pointer"
               type="submit"

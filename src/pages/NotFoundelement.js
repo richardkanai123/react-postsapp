@@ -12,7 +12,7 @@ const NotFoundelement = () => {
         <br />
         <span className="text-2xl font-bold text-center text-sky-600">
           Go back{" "}
-          <Link to="/" className="text-sky-900 underline ">
+          <Link to="/posts" className="text-sky-900 underline ">
             Home
           </Link>
         </span>

@@ -12,12 +12,10 @@ const Login = () => {
   const handleLogInWithGoogle = async () => {
     // ----->TODO: Login with Google using Firebase then redirect to Home page
     await signInWithPopup(auth, provider)
-      .then((result) => {
-        if (result) {
-          navigate("/posts");
-        }
+      .catch((err) => {
+        alert(err);
       })
-      .finally(() => {
+      .then(() => {
         navigate("/posts");
       });
   };

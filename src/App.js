@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Login from "./Components/Login";
 import Addnewpost from "./pages/Addnewpost";
 import NotFoundelement from "./pages/NotFoundelement";
@@ -7,20 +7,10 @@ import { auth } from "./utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import TopHeader from "./Components/TopHeader";
 import Profile from "./pages/Profile";
-import { useEffect } from "react";
+import EditPost from "./pages/EditPost";
 
 function App() {
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      navigate("/posts");
-    } else {
-      navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className=" min-w-full min-h-screen max-h-fit p-2 flex flex-col items-center justify-center align-middle justify-items-center gap-2 bg-green-300">
@@ -40,6 +30,7 @@ function App() {
         <Route path="/posts" element={<Postlist />} />
         <Route path="/newpost" element={<Addnewpost />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="edit/:id" element={<EditPost />} />
         <Route path="*" element={<NotFoundelement />} />
       </Routes>
     </div>
